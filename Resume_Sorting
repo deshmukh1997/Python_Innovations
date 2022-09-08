@@ -1,0 +1,37 @@
+import PyPDF2
+
+import os
+
+import shutil
+
+new = r'C:\Users\Talha\Desktop\Final CV'
+
+path = r'C:\Users\Talha\Desktop\My Reference'
+
+for path, dir, files in os.walk(path):
+
+    for f in files:
+
+        filename = os.path.join(path, f)
+
+        with open(filename, 'rb') as File:
+
+            reader = PyPDF2.PdfFileReader(File)
+
+            page = reader.getPage(0)
+
+            text = page.extractText()
+
+            print(text)
+
+            word = 'Python'
+
+            if word in text:
+
+                shutil.copy2(filename, new)
+
+                print('Done Sir! CV Got Selected for further Process..!!')
+
+            else:
+
+                print('CV in not Selected')
