@@ -1,0 +1,46 @@
+from bs4 import BeautifulSoup
+
+import requests
+
+import csv
+
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'}
+
+source = requests.get('https://www.makemytrip.com/railways/jalgaon-surat-train-tickets.html', headers = headers).text
+
+soup = BeautifulSoup(source, 'html.parser')
+
+Names = []
+
+Number = []
+
+Time = []
+
+for i in soup.find_all('a', class_='trainName'):
+
+    string = i.text
+
+    Names.append(string.strip())
+
+for i in soup.find_all('span', class_='trainNumber'):
+
+    string = i.text
+
+    Number.append(string.strip())
+
+for i in soup.find_all('span', class_='timeText'):
+
+    string = i.text
+
+    Time.append(string.strip())
+
+file_name = 'Surat Trains.csv'
+
+with open(file_name, 'w') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Sr.No', 'Train Name', 'Train Number', 'Time'])
+
+    for i in range(10):
+        writer.writerow([i, Names[i], Number[i], Time[i]])
+
+print('Done Sir!!')
