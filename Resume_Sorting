@@ -4,15 +4,17 @@ import os
 
 import shutil
 
-new = r'C:\Users\Talha\Desktop\Final CV'
+new = r'C:\Final CV'
 
-path = r'C:\Users\Talha\Desktop\My Reference'
+old = r'C:\My References'
 
-for path, dir, files in os.walk(path):
+for path, dir, files in os.walk(new):
 
     for f in files:
 
         filename = os.path.join(path, f)
+
+        print(filename)
 
         with open(filename, 'rb') as File:
 
@@ -22,13 +24,11 @@ for path, dir, files in os.walk(path):
 
             text = page.extractText()
 
-            print(text)
-
             word = 'Python'
 
             if word in text:
 
-                shutil.copy2(filename, new)
+                shutil.copy2(filename, old)
 
                 print('Done Sir! CV Got Selected for further Process..!!')
 
