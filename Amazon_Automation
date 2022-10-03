@@ -1,4 +1,6 @@
-from selenium import webdriver
+#Code for performing Web Automation using Python 
+
+from selenium import webdriver 
 
 from webdriver_manager.chrome import ChromeDriverManager
 
