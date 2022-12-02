@@ -1,0 +1,1632 @@
+import webbrowser
+
+import speech_recognition as sr
+
+import pyttsx3
+
+import random
+
+import pyautogui as pt
+
+from gtts import gTTS
+
+import win32com.client as wc
+
+import json
+
+import datetime
+
+import os
+
+import smtplib
+
+import time
+
+import subprocess
+
+import ctypes
+
+import pyjokes
+
+import winsound
+
+from selenium import webdriver
+
+import phonenumbers
+
+from phonenumbers import geocoder
+
+from phonenumbers import carrier
+
+from ecapture import ecapture as ec
+
+from urllib.request import urlopen
+
+from clint.textui import progress
+
+from twilio.rest import Client
+
+import requests
+
+import wikipedia
+
+from tkinter import *
+
+import sys
+
+from tkinter.font import Font
+
+from PIL import ImageTk, Image
+
+import keyboard
+
+root = Tk()
+
+f = 'Calibri', 40, 'bold'
+
+Label(root, text='DIGITAL ASSISTANT', font=f).pack()
+
+image = Image.open(r'C:\Users\Talha\PycharmProjects\SPEECH\ASSISTANT.jpg.jpg')
+
+photo = ImageTk.PhotoImage(image)
+
+img = Label(image=photo).pack()
+
+root.mainloop()
+
+engine = pyttsx3.init('sapi5')
+
+voices = engine.getProperty('voices')
+
+engine.setProperty('voice', voices[1].id)
+
+def sendEmail(to, content):
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+
+    server.ehlo()
+
+    server.starttls()
+
+    server.login('tvdeshmukh97@gmail.com', '06011997')
+
+    server.sendmail('tvdeshmukh97@gmail.com', to, content)
+
+    server.close()
+
+def speak(audio):
+
+    engine.say(audio)
+
+    engine.runAndWait()
+
+speak('ASSALAMUALAIKUM TALHA SIR')
+
+hour = int(datetime.datetime.now().hour)
+
+if hour >=0 and hour <12:
+
+    speak('GOOD MORNING SIR')
+
+elif hour >=12 and hour <18:
+
+    speak('GOOD AFTERNOOR SIR')
+
+else:
+
+    speak('GOOD EVENING SIR')
+
+speak('I am your digital assistant HEENAA, Tell Me How May I Help You Sir..!!')
+
+#gTTS(text='Mai aap ki digital assistant heena hu, aap ke liye kya kar sakti hu? Ashmira aap mere Talha sir ko baar baar pareshaan mat kijiye warna bohot bura honga, aap ko meri haath ki maaar padengi, Ashmira tu mere talha sir ke piche mat lag warna main tere piche kutte laga dungi', lang='hi', slow=FALSE).save('assistant.mp3')
+
+#os.system('assistant.mp3')
+
+def takeCommand():
+
+    r = sr.Recognizer()
+
+    with sr.Microphone() as source:
+
+        print('Listening...')
+
+        r.pause_threshold = 1
+
+        audio = r.listen(source)
+
+    try:
+
+        print('Recognizing...')
+
+        query = r.recognize_google(audio, language='en-in')
+
+        print(f'YOU SAID: {query}\n')
+
+    except:
+
+        print('Sorry, I am not able to recognize your voice')
+
+        speak('Sorry, I am not able to recognize your voice')
+
+        return "None"
+
+    return query
+
+def tc():
+
+    r = sr.Recognizer()
+
+    with sr.Microphone() as source:
+
+        r.pause_threshold = 1
+
+        audio = r.listen(source)
+
+    query1 =  r.recognize_google(audio, language='en-in')
+
+    return query1
+
+if __name__ == '__main__':
+
+    while True:
+
+        query = takeCommand().lower()
+
+        if 'wikipedia' in query:
+
+            speak('Searching Wikipedia')
+
+            query = query.replace('wikipedia', '')
+
+            results = wikipedia.summary(query, sentences=3)
+
+            speak('got it')
+
+            speak('According to wikipedia')
+
+            print(results)
+
+            speak(results)
+
+        elif 'youtube' in query:
+
+            speak('Ok sir, here is your you tube, Enjoy')
+
+            webbrowser.open('www.youtube.com')
+
+        elif 'google' in query:
+
+            speak('yes sir, search what you want')
+
+            webbrowser.open('www.google.com')
+
+        elif 'time' in query:
+
+            time = datetime.datetime.now().strftime('%H : %M : %S')
+
+            print(time)
+
+            speak(f'Sir, the time is {time}')
+
+        elif 'how are you' in query:
+
+            speak('Sir I am totally fine, what about you..?')
+
+        elif 'good' in query:
+
+            speak('I am glad that you are fine sir, any command sir..??')
+
+        elif 'take rest' in query:
+
+            speak('Aabaa saaalee')
+
+            speak('Alright sir, see you soon, have a good day')
+
+            exit()
+
+        elif 'Gmail' in query:
+
+            speak('Yes Sir')
+
+            webbrowser.open('www.gmail.com')
+
+        elif 'play music' in query:
+
+            speak('Here is your favourate music sir, Enjoy')
+
+            music_dir = 'C:\\Users\\Talha\\Desktop\\Music'
+
+            songs = os.listdir(music_dir)
+
+            for songs in songs:
+
+                os.startfile(os.path.join(music_dir, songs))
+
+                songs =+ 1
+
+        elif 'play video' in query:
+
+            speak('Here is your favourate video sir with you and your brother, Enjoy')
+
+            video = 'C:\\Users\\Talha\\Desktop\\Video'
+
+            vid = os.listdir(video)
+
+            for vid in vid:
+
+                os.startfile(os.path.join(video, vid))
+
+                vid =+ 1
+
+            while True:
+
+                query = takeCommand().lower()
+
+                if 'low brightness' in query:
+
+                    import wmi
+
+                    b = 20
+
+                    c = wmi.WMI(namespace='wmi')
+
+                    methods = c.WmiMonitorBrightnessMethods()[0]
+
+                    methods.WmiSetBrightness(b, 0)
+
+                elif 'more brightness' in query:
+
+                    import wmi
+
+                    b = 80
+
+                    c = wmi.WMI(namespace='wmi')
+
+                    methods = c.WmiMonitorBrightnessMethods()[0]
+
+                    methods.WmiSetBrightness(b, 0)
+
+        elif 'photos' in query:
+
+            speak('Here is your memorable photos sir...')
+
+            photo = 'C:\\Users\\Talha\\Desktop\\Photos'
+
+            pt = os.listdir(photo)
+
+            for pt in pt:
+
+                os.startfile(os.path.join(photo, pt))
+
+                pt =+ 1
+
+        elif 'some joke' in query:
+
+            print(pyjokes.get_joke())
+
+            speak(pyjokes.get_joke())
+
+        elif 'search' in query:
+
+             query = query.replace("search", "")
+
+             webbrowser.open(query)
+
+        elif 'play' in query:
+
+            query = query.replace("play", "")
+
+            webbrowser.open(query)
+
+        elif 'wanna be my gf' in query:
+
+            speak('I am not sure, i have to think about it, Please sir dont get obsessed with me, I am a machine not your gf!!!')
+
+        elif 'you break my heart' in query:
+
+            speak('I dont have feeling sir, so please forgive me, find some human girl for you and get married with her, and also invite me in your wedding')
+
+        elif 'wallpaper' in query:
+
+            speak('Ok sir')
+
+            ctypes.windll.user32.SystemParametersInfoW(20,
+                                                       0,
+                                                       r'‪C:\Users\Talha\Pictures\planets.png',
+                                                       0)
+
+            speak('wallpaper changed sir!')
+
+        elif 'news' in query:
+
+            speak('ok sir')
+
+            try:
+
+                jsonObj = urlopen('''http://newsapi.org/v2/everything?q=bitcoin&from=2020-03-27&sortBy=publishedAt&apiKey=bbb8394505114fc3bdbaf2d615f736f4''')
+
+                data = json.load(jsonObj)
+
+                i = 1
+
+                speak('Times Of India')
+
+                print('''==========TIMES OF INDIA=========='''+ '\n')
+
+                for item in data['articles']:
+
+                    print(str(i) + '. ' + item['title'] + '\n')
+
+                    print(item['description'] + '\n')
+
+                    speak(str(i) + '. ' + item['title'] + '\n')
+
+                    i += 1
+
+            except Exception as e:
+
+                print(str(e))
+
+        elif 'take a photo' in query:
+
+            speak('ok sir, please make a smile on face')
+
+            ec.capture(0, 'Heena Camera', 'img.jpg')
+
+        elif 'write a note' in query:
+
+            speak('Tell me sir, What should I write..?')
+
+            note = takeCommand()
+
+            file = open('HEENA.txt', 'w')
+
+            file.write(note)
+
+        elif 'show note' in query:
+
+            speak('here is your note sir..')
+
+            file = open('HEENA.txt', 'r')
+
+            print(file.read())
+
+            speak(file.read())
+
+        elif 'weather' in query:
+
+            api_key = '38d11eb60b0fbe3285094a913b64d8a0'
+
+            base_url = 'api.openweathermap.org/data/2.5/weather?'
+
+            speak('City name sir')
+
+            print('City name : ')
+
+            city_name = takeCommand()
+
+            complete_url = base_url + 'appid =' + '38d11eb60b0fbe3285094a913b64d8a0' + '&q =' + city_name
+
+            response = requests.get(complete_url)
+
+            x = response.json()
+
+            if x['cod'] != '404':
+
+                y = x['main']
+
+                current_tempreture = y['temp']
+
+                current_pressure = y['pressure']
+
+                current_humidity = y['humidity']
+
+                z = x['weather']
+
+                weather_description = z[0]['description']
+
+                print('Tempreture (in kelvin unit) = ' +str(current_tempreture)+'\n Atmospheric pressure (in hPa unit) ='+str(current_pressure)+ '\n Humidity (in percentage) = '+str(current_humidity) + '\n description = ' +str(weather_description))
+
+            else:
+
+                speak('Sorry sir, City not found, try again!!')
+
+        elif 'send massege' in query:
+
+            account_sid = ''
+
+            auth_token = ''
+
+            client = Client(account_sid, auth_token)
+
+            message = client.messages\
+                            .create(
+
+                                body = takeCommand(),
+
+                                from_= '9665180212',
+
+                                to = '9421516632'
+
+            )
+
+        elif 'soundcloud' in query:
+
+            speak('ok Sir, Enjoy your Music!!')
+
+            webbrowser.open('www.soundcloud.com')
+
+        elif 'open whatsapp' in query:
+
+            speak('Afcourse sir')
+
+            speak('Some personal chattings are there sir')
+
+            speak('Be carefull...')
+
+            webbrowser.open('https://web.whatsapp.com/')
+
+        elif 'facebook' in query:
+
+            speak('Here is your Facebook profile sir!')
+
+            webbrowser.open('www.facebook.com')
+
+        elif 'instagram' in query:
+
+            speak('Check out your instagram profile sir')
+
+            webbrowser.open('www.instagram.com')
+
+        elif 'open maps' in query:
+
+            speak('Search your root with google maps...')
+
+            webbrowser.open('www.google maps.com')
+
+        elif 'Naukri' in query:
+
+            speak('search your intresting jobs here sir')
+
+            webbrowser.open('www.naukri.com')
+
+        elif 'linkedIn' in query:
+
+            speak('Here is your linked in profile sir')
+
+            webbrowser.open('www.linkedin.com')
+
+        elif 'train status' in query:
+
+            speak('Search your favourate trains here sir')
+
+            webbrowser.open('https://www.railyatri.in/live-train-status')
+
+        elif 'bank status' in query:
+
+            speak('Go through your internet banking here sir...!!!')
+
+            webbrowser.open('https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=ICI&ITM=nli_personalb_personal_login_btn&_ga=2.67790929.1903449314.1586608117-483788500.1586608117')
+
+        elif 'open my NTS portal' in query:
+
+            speak('Sure sir..')
+
+            speak('Check out your office portal')
+
+            webbrowser.open('')
+
+        elif 'send mail' in query:
+
+            try:
+
+                speak('what should I Say sir?')
+
+                content = takeCommand()
+
+                to = 'tvdeshmukh97@gmail.com'
+
+                sendEmail(to, content)
+
+                speak('Email has been sent sir jii!!!')
+
+            except Exception as e:
+
+                print(e)
+
+                speak('sorry sir, i cant sent this mail')
+
+        elif 'where is' in query:
+
+            query = query.replace('where is', '')
+
+            location = query
+
+            speak('Sir, location you want is')
+
+            speak(location)
+
+            webbrowser.open('https://www.google.nl / maps / place/" + location + "')
+
+        elif 'sort out my data' in query:
+
+            speak('sure sir')
+
+            import os
+
+            import shutil
+
+            path = r'C:\Users\Talha\Downloads\Talha 1'
+
+            img = r'C:\Users\Talha\Desktop\Images'
+
+            txt = r'C:\Users\Talha\Desktop\texts'
+
+            pdf = r'C:\Users\Talha\Desktop\pdf'
+
+            for root, dirs, files in os.walk((os.path.normpath(path)), topdown=False):
+
+                for name in files:
+
+                    if name.endswith('.jpg'):
+
+                        new = os.path.join(root, name)
+
+                        shutil.copy2(new, img)
+
+                    elif name.endswith('.txt'):
+
+                        new1 = os.path.join(root, name)
+
+                        shutil.copy2(new1, txt)
+
+                    elif name.endswith('.pdf'):
+
+                        new2 = os.path.join(root, name)
+
+                        shutil.copy2(new2, pdf)
+
+            speak('done sir')
+
+            speak('anything else?')
+
+        elif 'ocr my image' in query:
+
+            speak('ok sir, give me some time to extracting text from your image')
+
+            import cv2
+
+            import pytesseract as tes
+
+            tes.pytesseract.tesseract_cmd = r'C:\Users\Talha\AppData\Local\Tesseract-OCR\tesseract'
+
+            img = cv2.imread(r'C:\Users\Talha\Desktop\licence.jpeg')
+
+            gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+            ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
+
+            rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (18, 18))
+
+            dilation = cv2.dilate(thresh1, rect_kernel, iterations = 1)
+
+            contours, hierarchy = cv2.findContours(dilation, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+            im2 = img.copy()
+
+            speak('OCR is done sir, check your file please!')
+
+            subprocess.Popen(['notepad', 'rec_text'])
+
+            for cnt in contours:
+
+                x, y, w, h = cv2.boundingRect(cnt)
+
+                rect = cv2.rectangle(im2, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                cropped = im2[y:y + h, x:x + w]
+
+                file = open('rec_text', 'a')
+
+                text = tes.image_to_string(cropped)
+
+                file.write(text)
+
+                file.write('\n')
+
+                file.close()
+
+
+        elif 'advance image' in query:
+
+            speak('Sure sir')
+
+            speak('please give some time to ocr')
+
+            import os, io
+
+            from google.cloud import vision
+
+            from google.cloud.vision import types
+
+            import pandas as pd
+
+            os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'C:\Users\Talha\Desktop\SPEECH\ServiceAccountToken.json'
+
+            client = vision.ImageAnnotatorClient()
+
+            FOLDER_PATH = r'C:\Users\Talha\Desktop\SPEECH\Image.py'
+
+            IMAGE_FILE = r'C:\Users\Talha\Desktop\licence.jpeg'
+
+            FILE_PATH = os.path.join(FOLDER_PATH, IMAGE_FILE)
+
+            with io.open(FILE_PATH, 'rb') as image_file:
+
+                content = image_file.read()
+
+            image = vision.types.Image(content=content)
+
+            response = client.document_text_detection(image=image)
+
+            docText = response.full_text_annotation.text
+
+            print(docText)
+
+            speak('Done sir, check out your google ocr')
+
+            subprocess.Popen(['notepad', 'Google_OCR'])
+
+        elif 'motion' in query:
+
+            speak('Afcourse sir, why not')
+
+            speak('Move your self so that I can detect your body parts')
+
+            import cv2
+
+            cap = cv2.VideoCapture(0)
+
+            ret, frame1 = cap.read()
+
+            ret1, frame2 = cap.read()
+
+            while cap.isOpened():
+
+                diff = cv2.absdiff(frame1, frame2)
+
+                gray = cv2.cvtColor(diff, cv2.COLOR_RGB2GRAY)
+
+                blur = cv2.GaussianBlur(gray, (5, 5), 0)
+
+                _, thresh = cv2.threshold(blur, 20, 255, cv2.THRESH_BINARY)
+
+                dilated = cv2.dilate(thresh, None, iterations=3)
+
+                contours, _ = cv2.findContours(dilated, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+                for contour in contours:
+
+                    (x, y, w, h) = cv2.boundingRect(contour)
+
+                    if cv2.contourArea(contour) < 700:
+
+                        continue
+
+                    cv2.rectangle(frame1, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+                    cv2.putText(frame1, 'Status: {}'.format('Movement'), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 1,(0, 0, 255), 3)
+
+                cv2.imshow('DON', frame1)
+
+                frame1 = frame2
+
+                ret, frame2 = cap.read()
+
+                if cv2.waitKey(20) & 0xff == ord('q'):
+
+                    break
+
+            cv2.destroyAllWindows()
+
+            cap.release()
+
+        elif 'my mobile number' in query:
+
+            speak('sir your mobile number is 9665180212')
+
+        elif 'sim company' in query:
+
+            import phonenumbers
+
+            from phonenumbers import geocoder
+
+            from phonenumbers import carrier
+
+            num = phonenumbers.parse('+919665180212')
+
+            service = phonenumbers.parse('+919665180212')
+
+            print(geocoder.description_for_number(num, 'en'))
+
+            print(carrier.name_for_number(service, 'en'))
+
+            speak('Sir your sim country is India')
+
+            speak('sir your sim company is Airtel')
+
+        elif '966 5180 212' in query:
+
+            speak('your mobile number sir')
+
+        elif 'check amazon price' in query:
+
+            speak('Fine sir')
+
+            import requests
+
+            from bs4 import BeautifulSoup
+
+            import time
+
+            def getPrice():
+
+                print('Connecting to Amazon..')
+
+                speak('Connecting to Amazon')
+
+                URL = 'https://www.amazon.in/Mi-Redmi-Smartphone-Black-Storage/dp/B07Z6GKRS7/ref=sr_1_1?dchild=1&keywords=mi&m=A2EZYW60S94PYU&qid=1595162155&refinements=p_n_feature_three_browse-bin%3A1897963031%2Cp_89%3AMi%2Cp_6%3AA2EZYW60S94PYU&rnid=1318474031&s=electronics&sr=1-1'
+
+                HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36'}
+
+                page = requests.get(URL, headers=HEADERS)
+
+                soup = BeautifulSoup(page.content, 'html.parser')
+
+                title = soup.find(id='title').get_text().strip()
+
+                price = soup.find(id='priceblock_ourprice').get_text().strip()
+
+                if price > str(12000.00):
+
+                    winsound.Beep(10000, 1000)
+
+                    speak('Price is relevent sir, you can buy the product')
+
+                    speak('Redirecting you to the product')
+
+                    webbrowser.open('https://www.amazon.in/Mi-Redmi-Smartphone-Black-Storage/dp/B07Z6GKRS7/ref=sr_1_1?dchild=1&keywords=mi&m=A2EZYW60S94PYU&qid=1595162155&refinements=p_n_feature_three_browse-bin%3A1897963031%2Cp_89%3AMi%2Cp_6%3AA2EZYW60S94PYU&rnid=1318474031&s=electronics&sr=1-1')
+
+                    sys.exit()
+
+                else:
+
+                    print('Product Name : ', title)
+
+                    speak('Product Name is  Mi Redmi 8 Smartphone (Onyx Black, 4GB RAM, 64GB Storage')
+
+                    print('Fetching price...')
+
+                    speak('Fetching price...')
+
+                    time.sleep(3)
+
+                    print('Current Price is : ', price)
+
+                    speak('Current Price is')
+
+                    speak(price)
+
+                    speak('Price is to high sir, I recommend you to buy after some few days')
+
+            if __name__ == '__main__':
+
+                for i in range(3):
+
+                    getPrice()
+
+                    print('checking again after some time..')
+
+                    speak('checking again after some time..please wait sir')
+
+                    time.sleep(20)
+
+        elif 'battery' in query:
+
+            import psutil
+
+            battery = psutil.sensors_battery()
+
+            plugged = battery.power_plugged
+
+            percent = str(battery.percent)
+
+            print(percent)
+
+            speak(percent)
+
+            if percent > str(70):
+
+                speak('Sir your battery is good right now you can use it')
+
+            else:
+
+                speak('Sir your battery is getting low, you need to charge battery')
+
+            if plugged == False:
+
+                print('Not plugged in..')
+
+                speak('Not plugged in..')
+
+            else:
+
+                print('Plugged in..')
+
+                speak('plugged in..')
+
+                print('Charging..')
+
+                speak('Charging')
+
+                speak('Thanks for charging sir...')
+
+        elif 'song' in query:
+
+            from pygame import mixer
+
+            mixer.init()
+
+            mixer.music.load('lohara.mp3')
+
+            mixer.music.play()
+
+            while True:
+
+                query = takeCommand().lower()
+
+                if 'pause' in query:
+
+                    mixer.music.pause()
+
+                elif 'resume' in query:
+
+                    mixer.music.unpause()
+
+                elif 'stop' in query:
+
+                    mixer.music.stop()
+
+                    break
+
+                elif 'volume low' in query:
+
+                    mixer.music.set_volume(0.2)
+
+                elif 'volume increase' in query:
+
+                    mixer.music.set_volume(1.0)
+
+        elif 'brightness low' in query:
+
+            import wmi
+
+            b = 20
+
+            c = wmi.WMI(namespace='wmi')
+
+            methods = c.WmiMonitorBrightnessMethods()[0]
+
+            methods.WmiSetBrightness(b, 0)
+
+        elif 'more brightness' in query:
+
+            import wmi
+
+            b = 80
+
+            c = wmi.WMI(namespace='wmi')
+
+            methods = c.WmiMonitorBrightnessMethods()[0]
+
+            methods.WmiSetBrightness(b, 0)
+
+        elif 'full brightness' in query:
+
+            import wmi
+
+            b = 100
+
+            c = wmi.WMI(namespace='wmi')
+
+            methods = c.WmiMonitorBrightnessMethods()[0]
+
+            methods.WmiSetBrightness(b, 0)
+
+        elif 'open excel' in query:
+
+            speak('Ok sir, here is your exel sheet')
+
+            ex = r'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk'
+
+            os.startfile(ex)
+
+        elif 'lohara memories' in query:
+
+            speak('Alright sir, here is your awsome memories in lohara..')
+
+            speak('Please dont get emotional you will soon going to lohara')
+
+            import os
+
+            import time
+
+            lohara = r'C:\Users\Talha\Desktop\lohara_img'
+
+            mem = os.listdir(lohara)
+
+            for mem in mem:
+
+                os.startfile(os.path.join(lohara, mem))
+
+                mem = + 1
+
+                time.sleep(3)
+
+        elif 'open duo' in query:
+
+            speak('Good choice sir for video calling')
+
+            speak('Enjoy high quality video call service here')
+
+            webbrowser.open('https://duo.google.com/?web&utm_source=marketing_page_button_main')
+
+        elif 'open my zoho mail' in query:
+
+            speak('ok sir')
+
+            speak('check your office mail sir..')
+
+            webbrowser.open('https://mail.zoho.com/zm/#mail/folder/inbox')
+
+        elif 'open outlook' in query:
+
+            speak('sure sir')
+
+            speak('check out your outlook mail sir')
+
+            ot = r'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook.lnk'
+
+            os.startfile(ot)
+
+        elif 'office charge' in query:
+
+            speak('ok sir')
+
+            speak('login to paymo sir for your monthly charge')
+
+            webbrowser.open('https://app.paymoapp.com/auth/login/return/%2F%3Fpk_vid%3Dcbe55d068bde1f6515956170003d9948')
+
+        elif 'Surat Trains' in query:
+
+            speak('Sure Sir, I will make an excel sheet of surat trains')
+
+            speak('Kindly wait for few seconds!')
+
+            from bs4 import BeautifulSoup
+
+            import requests
+
+            import csv
+
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'}
+
+            source = requests.get('https://www.makemytrip.com/railways/jalgaon-surat-train-tickets.html',
+                                  headers=headers).text
+
+            soup = BeautifulSoup(source, 'html.parser')
+
+            Names = []
+
+            Number = []
+
+            Time = []
+
+            for i in soup.find_all('a', class_='trainName'):
+                string = i.text
+
+                Names.append(string.strip())
+
+            for i in soup.find_all('span', class_='trainNumber'):
+                string = i.text
+
+                Number.append(string.strip())
+
+            for i in soup.find_all('span', class_='timeText'):
+                string = i.text
+
+                Time.append(string.strip())
+
+            file_name = 'Surat Trains.csv'
+
+            with open(file_name, 'w') as file:
+                writer = csv.writer(file)
+                writer.writerow(['Sr.No', 'Train Name', 'Train Number', 'Time'])
+
+                for i in range(10):
+                    writer.writerow([i, Names[i], Number[i], Time[i]])
+
+            print('Done Sir!!')
+
+        speak('You can check the Excel sheet now to get the train details!')
+
+        elif 'open postman' in query:
+
+            speak('Done sir')
+
+            speak('Great place to test your API')
+
+            post = r'C:\Users\Talha\Desktop\Postman.lnk'
+
+            os.startfile(post)
+
+        elif 'Start RDS' in query:
+
+            speak('Ok sir')
+
+            speak('Do your office work in RDS')
+
+            rds = r'C:\Users\Talha\Desktop\EVERSANA CVG Developer RDS.rdp'
+
+            os.startfile(rds)
+
+        elif 'open TEAM' in query:
+
+            speak('yes sir')
+
+            speak('Attend your office meetings here')
+
+            teams = r'C:\Users\Talha\Desktop\Microsoft Teams.lnk'
+
+            os.startfile(teams)
+
+        elif 'open eclipse' in query:
+
+            speak('fine sir')
+
+            speak('do your java coding stuff here..')
+
+            java = r'C:\Users\Talha\Desktop\Eclipse IDE for Enterprise Java Developers - 2020-03.lnk'
+
+            os.startfile(java)
+
+        elif 'open pycharm' in query:
+
+            speak('cool sir')
+
+            speak('Code here with fantastic python')
+
+            python = r'C:\Users\Public\Desktop\JetBrains PyCharm Community Edition 2019.3 x64.lnk'
+
+            os.startfile(python)
+
+        elif 'Udemy Courses' in query:
+
+            speak('Ok sir')
+
+            speak('Opening udemy..')
+
+            webbrowser.open('https://www.udemy.com/')
+
+        elif 'trip video' in query:
+
+            speak('Cool sir')
+
+            from moviepy.editor import VideoFileClip
+
+            path = r'C:\Users\Talha\Downloads\moiz_bhaijan.mp4'
+
+            file = VideoFileClip(path)
+
+            new = file.subclip(t_start=(4, 4), t_end=(4, 23))
+
+            new.write_videofile(r'C:\Users\Talha\Desktop\awaaz.mp4')
+
+            speak('Done sir check your video')
+
+        elif 'open fb' in query:
+
+            speak('Sir facebook is going to log in automatically..')
+
+            from selenium import webdriver
+
+            from time import sleep
+
+            import pyautogui as pt
+
+            class FacebookBOt:
+
+                def __init__(self, username, pw):
+
+                    self.driver = webdriver.Chrome()
+
+                    self.driver.maximize_window()
+
+                    self.driver.get('https://www.facebook.com/')
+
+                    sleep(2)
+
+                    pt.click(1900, 100)
+
+                    self.driver.find_element_by_id('email').send_keys(username)
+
+                    sleep(2)
+
+                    self.driver.find_element_by_id('pass').send_keys(pw)
+
+                    sleep(2)
+
+                    self.driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button').click()
+
+                    sleep(10)
+
+                    pt.click(390, 150)
+
+                    sleep(2)
+
+                    pt.click(390, 150)
+
+            if __name__ == '__main__':
+
+                fb_bot = FacebookBOt('9665180212', 'virusjoker0812')
+
+        elif 'open insta' in query:
+
+            speak('Sir your Instagram is going to login through facebook automatically...')
+
+            from selenium import webdriver
+
+            from time import sleep
+
+            import pyautogui as pt
+
+            class MyInsta:
+
+                def __init__(self, username, password):
+
+                    self.driver = webdriver.Chrome()
+
+                    self.driver.maximize_window()
+
+                    sleep(2)
+
+                    pt.click(1900, 100)
+
+                    self.driver.get('https://www.instagram.com/')
+
+                    sleep(2)
+
+                    pt.click(1100, 540)
+
+                    self.driver.find_element_by_id('email').send_keys(username)
+
+                    sleep(2)
+
+                    self.driver.find_element_by_id('pass').send_keys(password)
+
+                    sleep(2)
+
+                    self.driver.find_element_by_id('loginbutton').click()
+
+                    sleep(15)
+
+                    pt.click(1100, 700)
+
+            if __name__ == '__main__':
+
+                my_insta = MyInsta('9665180212', 'virusjoker0812')
+
+        elif 'detect photo' in query:
+
+            speak('Sure sir')
+
+            speak('your face and eye is going to detect...')
+
+            import cv2
+
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+            eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+
+            img = cv2.imread(r'C:\Users\Talha\Downloads\pass_img.jpeg')
+
+            gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+            faces = face_cascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=5)
+
+            for x, y, w, h in faces:
+
+                img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+
+                roi_gray = gray[y:y + h, x:x + w]
+
+                roi_color = img[y:y + h, x:x + w]
+
+                eyes = eye_cascade.detectMultiScale(roi_gray)
+
+                for (ex, ey, ew, eh) in eyes:
+
+                    cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 3)
+
+            cv2.imshow('image', img)
+
+            cv2.waitKey()
+
+            cv2.destroyAllWindows()
+
+        elif 'detect my face' in query:
+
+            speak('Afcourse sir')
+
+            speak('Please be in front of camera')
+
+            speak('I will detect your face and eye')
+
+            import cv2
+
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+
+            eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
+
+            cap = cv2.VideoCapture(0)
+
+            # address = 'https://192.168.43.101:8080/video'
+
+            # cap.open(address)
+
+            while True:
+
+                _, img = cap.read()
+
+                gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+                faces = face_cascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=5)
+
+                for (x, y, w, h) in faces:
+
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+                    roi_gray = gray[y:y + h, x:x + w]
+
+                    roi_color = img[y:y + h, x:x + w]
+
+                    eyes = eye_cascade.detectMultiScale(roi_gray)
+
+                    for (ex, ey, ew, eh) in eyes:
+
+                        cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (255, 0, 0), 2)
+
+                cv2.imshow('vid', img)
+
+                if cv2.waitKey(1) & 0xff == ord('q'):
+                    break
+
+            cap.release()
+
+        elif 'detect car' in query:
+
+            speak('All right sir')
+
+            import cv2
+
+            car_cascade = cv2.CascadeClassifier('cars.xml')
+
+            cap = cv2.VideoCapture(r'C:\Users\Talha\Downloads\WhatsApp Video 2020-10-09 at 12.28.05 PM.mp4')
+
+            while cap.isOpened():
+
+                ret, img = cap.read()
+
+                gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+                cars = car_cascade.detectMultiScale(gray, 1.1, 1)
+
+                for (x, y, w, h) in cars:
+
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+
+                    cv2.imshow('car_detect', img)
+
+                if cv2.waitKey(1) & 0xff == ord('q'):
+                    break
+
+            cap.release()
+
+        elif 'detect number of faces' in query:
+
+            speak('Ok sir')
+
+            import cv2
+
+            face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+            cap = cv2.VideoCapture(0)
+
+            while True:
+
+                _, img = cap.read()
+
+                gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+
+                faces = face_cascade.detectMultiScale(gray, 1.05, 5)
+
+                for (x, w, y, h) in faces:
+
+                    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+                    cv2.imshow('faces', img)
+
+                if cv2.waitKey(1) & 0xff == ord('q'):
+
+                    break
+
+            count = str(len(faces))
+
+            print(count)
+
+            speak('Sir total number of faces are')
+
+            speak(count)
+
+            if count == str(1):
+
+                print('Not Applicable')
+
+            elif count == str(2):
+
+                print('Applicable')
+
+            cap.release()
+
+        elif 'write on notepad' in query:
+
+            import os
+
+            import pyautogui as pt
+
+            from time import sleep
+
+            import speech_recognition as sr
+
+            import pyttsx3
+
+            from keyboard import press
+
+            path = r'C:\Users\Talha\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk'
+
+            os.startfile(path)
+
+            engine = pyttsx3.init('sapi5')
+
+            voices = engine.getProperty('voices')
+
+            engine.setProperty('voices', voices[1].id)
+
+            def speak(audio):
+
+                engine.say(audio)
+
+                engine.runAndWait()
+
+            r = sr.Recognizer()
+
+            with sr.Microphone() as source:
+
+                print('Ready to type please say..')
+
+                speak('What should I write to notepad sir?')
+
+                r.pause_threshold = 1
+
+                audio = r.listen(source)
+
+                print('Typing to notepad')
+
+                speak('Typing to notepad sir')
+
+                word = r.recognize_google(audio, language='en-in')
+
+                sleep(2)
+
+                pt.typewrite(word)
+
+                #pt.click(550, 310)
+
+                #sleep(2)
+
+                #pt.click(550, 400)
+
+                #sleep(2)
+
+                #pt.click(1100, 700)
+
+                #sleep(2)
+
+                #for i in range(5):
+
+                 #   press('backspace')
+
+                #sleep(2)
+
+                #pt.typewrite('demo.txt')
+
+                #pt.click(1450, 750)
+
+        elif 'make zip file' in query:
+
+            speak('Sure sir')
+
+            import os
+
+            import shutil
+
+            old = r'C:\Users\Talha\Desktop\rar'
+
+            new = r'C:\Users\Talha\Desktop\rar'
+
+            for path, dir, files in os.walk(old):
+
+                print(path)
+
+                shutil.make_archive(path, 'zip', new)
+
+                print('done sir..check folder')
+
+                speak('Done sir please check your folder')
+
+        elif 'check internet connection' in query:
+
+            speak('sure sir')
+
+            speak('give me a moment')
+
+            url = 'https://mail.zoho.com/zm/#mail/folder/inbox'
+
+            try:
+
+                requests.get(url)
+
+                print('Internet connected')
+
+                speak('Internet is connected sir, you can do your work!')
+
+            except:
+
+                print('No internet connection')
+
+                speak('Please check internet connection sir, internet is not connected!')
+
+        elif 'check my icici balance' in query:
+
+            speak('Sure sir')
+
+            speak('Getting information from your Salary Account of ICICI Bank!!')
+
+            speak('Kindly wait sir')
+
+            from selenium import webdriver
+
+            from webdriver_manager.chrome import ChromeDriverManager
+
+            from time import sleep
+
+            import pyautogui as pt
+
+            driver = webdriver.Chrome(ChromeDriverManager().install())
+
+            driver.get('https://www.icicibank.com/')
+
+            sleep(2)
+
+            driver.maximize_window()
+
+            sleep(2)
+
+            driver.find_element_by_xpath('/html/body/div[5]/div[2]/div[2]/div/p[2]/a').click()
+
+            sleep(2)
+
+            driver.find_element_by_xpath('/html/body/header/div/div[1]/div/nav[2]/div/div[3]/a').click()
+
+            sleep(2)
+
+            pt.click(1200, 350)
+
+            sleep(2)
+
+            pt.typewrite('570867828')
+
+            sleep(2)
+
+            pt.click(1200, 400)
+
+            sleep(2)
+
+            pt.typewrite('icici@2020')
+
+            sleep(2)
+
+            pt.click(1200, 550)
+
+        elif 'log in to maharashtra bank':
+
+            speak('ok sir')
+
+            speak('logging is in process please wait')
+
+            from selenium import webdriver
+
+            from webdriver_manager.chrome import ChromeDriverManager
+
+            from time import sleep
+
+            import pyautogui as pt
+
+            driver = webdriver.Chrome(ChromeDriverManager().install())
+
+            driver.get('https://www.mahaconnect.in/InternetBanking1/ib/login.jsf?lt=R')
+
+            sleep(2)
+
+            driver.maximize_window()
+
+            sleep(2)
+
+            pt.typewrite('40161747198')
+
+            sleep(2)
+
+            pt.click(900, 300)
+
+            sleep(2)
+
+            pt.typewrite('Maha@2021')
+
+            sleep(10)
+
+            pt.click(900, 465)
+
+        elif 'lock window' in query:
+
+            speak('Ok sir!')
+
+            speak('Locking window sir, taking some rest as per your command!')
+
+            ctypes.windll.user32.LockWorkStation()
+
+            time.sleep(1)
+
+            keyboard.press('ctrl + L')
+
+        elif 'Open Google Colab' in query:
+
+            speak('Sure Sir')
+
+            speak('Do your ML work here')
+
+            webbrowser.open('https://colab.research.google.com/drive/1kWHzbTjQYCY_F0--j52SoI_Spste4Ug6')
+
+        elif 'shutdown the system' in query:
+
+            speak('make sure sir all applicartions are closed')
+
+            time.sleep(5)
+
+            speak('Sir, your system is going to shutdown in second')
+
+            subprocess.call('shutdown / p /1')
+
+        elif 'restart' in query:
+
+            subprocess.call(['shutdown', '/r'])
