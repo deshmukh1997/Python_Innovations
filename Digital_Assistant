@@ -1,3 +1,5 @@
+//Please enter your usernames, passwords & mobile at required places in the code before using it.
+
 import webbrowser
 
 import speech_recognition as sr
@@ -88,9 +90,9 @@ def sendEmail(to, content):
 
     server.starttls()
 
-    server.login('tvdeshmukh97@gmail.com', '06011997')
+    server.login('******@gmail.com', 'ENTER_YOUR_PASSWORD')
 
-    server.sendmail('tvdeshmukh97@gmail.com', to, content)
+    server.sendmail('********@gmail.com', to, content)
 
     server.close()
 
@@ -444,9 +446,9 @@ if __name__ == '__main__':
 
                                 body = takeCommand(),
 
-                                from_= '9665180212',
+                                from_= '******0212',
 
-                                to = '9421516632'
+                                to = '******6632'
 
             )
 
@@ -458,7 +460,7 @@ if __name__ == '__main__':
 
         elif 'open whatsapp' in query:
 
-            speak('Afcourse sir')
+            speak('Of course sir')
 
             speak('Some personal chattings are there sir')
 
@@ -524,7 +526,7 @@ if __name__ == '__main__':
 
                 content = takeCommand()
 
-                to = 'tvdeshmukh97@gmail.com'
+                to = '********@gmail.com'
 
                 sendEmail(to, content)
 
@@ -534,7 +536,7 @@ if __name__ == '__main__':
 
                 print(e)
 
-                speak('sorry sir, i cant sent this mail')
+                speak('sorry sir, i cant send this mail')
 
         elif 'where is' in query:
 
@@ -733,7 +735,7 @@ if __name__ == '__main__':
 
         elif 'my mobile number' in query:
 
-            speak('sir your mobile number is 9665180212')
+            speak('Sir, your mobile number is ******212')
 
         elif 'sim company' in query:
 
@@ -743,9 +745,9 @@ if __name__ == '__main__':
 
             from phonenumbers import carrier
 
-            num = phonenumbers.parse('+919665180212')
+            num = phonenumbers.parse('+91******0212')
 
-            service = phonenumbers.parse('+919665180212')
+            service = phonenumbers.parse('+91******0212')
 
             print(geocoder.description_for_number(num, 'en'))
 
@@ -755,7 +757,7 @@ if __name__ == '__main__':
 
             speak('sir your sim company is Airtel')
 
-        elif '966 5180 212' in query:
+        elif '*** **** 212' in query:
 
             speak('your mobile number sir')
 
@@ -817,7 +819,7 @@ if __name__ == '__main__':
 
                     speak(price)
 
-                    speak('Price is to high sir, I recommend you to buy after some few days')
+                    speak('Price is too high sir, I recommend you to buy after few days')
 
             if __name__ == '__main__':
 
@@ -945,7 +947,7 @@ if __name__ == '__main__':
 
         elif 'open excel' in query:
 
-            speak('Ok sir, here is your exel sheet')
+            speak('Ok sir, here is your excel sheet')
 
             ex = r'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk'
 
@@ -955,7 +957,7 @@ if __name__ == '__main__':
 
             speak('Alright sir, here is your awsome memories in lohara..')
 
-            speak('Please dont get emotional you will soon going to lohara')
+            speak('Please don't get emotional you will soon going to lohara')
 
             import os
 
@@ -975,7 +977,7 @@ if __name__ == '__main__':
 
         elif 'open duo' in query:
 
-            speak('Good choice sir for video calling')
+            speak('Good choice for video calling')
 
             speak('Enjoy high quality video call service here')
 
@@ -1179,7 +1181,7 @@ if __name__ == '__main__':
 
             if __name__ == '__main__':
 
-                fb_bot = FacebookBOt('9665180212', 'virusjoker0812')
+                fb_bot = FacebookBOt('ENTER_YOUR_USERNAME', 'ENTER_YOUR_PASSWORD')
 
         elif 'open insta' in query:
 
@@ -1225,13 +1227,13 @@ if __name__ == '__main__':
 
             if __name__ == '__main__':
 
-                my_insta = MyInsta('9665180212', 'virusjoker0812')
+                my_insta = MyInsta('ENTER_YOUR_USERNAME', 'ENTER_YOUR_PASSWORD')
 
         elif 'detect photo' in query:
 
             speak('Sure sir')
 
-            speak('your face and eye is going to detect...')
+            speak('Your face and eye is going to detect...')
 
             import cv2
 
@@ -1267,7 +1269,7 @@ if __name__ == '__main__':
 
         elif 'detect my face' in query:
 
-            speak('Afcourse sir')
+            speak('Of course, Sir')
 
             speak('Please be in front of camera')
 
@@ -1431,9 +1433,9 @@ if __name__ == '__main__':
 
                 audio = r.listen(source)
 
-                print('Typing to notepad')
+                print('Typing in notepad')
 
-                speak('Typing to notepad sir')
+                speak('Typing in notepad, Sir')
 
                 word = r.recognize_google(audio, language='en-in')
 
@@ -1487,9 +1489,9 @@ if __name__ == '__main__':
 
         elif 'check internet connection' in query:
 
-            speak('sure sir')
+            speak('Sure, Sir')
 
-            speak('give me a moment')
+            speak('Give me a moment')
 
             url = 'https://mail.zoho.com/zm/#mail/folder/inbox'
 
@@ -1499,13 +1501,13 @@ if __name__ == '__main__':
 
                 print('Internet connected')
 
-                speak('Internet is connected sir, you can do your work!')
+                speak('Internet is connected, you can now do your work!')
 
             except:
 
                 print('No internet connection')
 
-                speak('Please check internet connection sir, internet is not connected!')
+                speak('Please check internet connection, internet is not connected!')
 
         elif 'check my icici balance' in query:
 
@@ -1513,7 +1515,7 @@ if __name__ == '__main__':
 
             speak('Getting information from your Salary Account of ICICI Bank!!')
 
-            speak('Kindly wait sir')
+            speak('Kindly wait, Sir')
 
             from selenium import webdriver
 
@@ -1545,7 +1547,7 @@ if __name__ == '__main__':
 
             sleep(2)
 
-            pt.typewrite('570867828')
+            pt.typewrite('ENTER_USERNAME')
 
             sleep(2)
 
@@ -1553,7 +1555,7 @@ if __name__ == '__main__':
 
             sleep(2)
 
-            pt.typewrite('icici@2020')
+            pt.typewrite('ENTER_YOUR_PASSWORD')
 
             sleep(2)
 
@@ -1583,7 +1585,7 @@ if __name__ == '__main__':
 
             sleep(2)
 
-            pt.typewrite('40161747198')
+            pt.typewrite('ENTER_USERNAME')
 
             sleep(2)
 
@@ -1591,7 +1593,7 @@ if __name__ == '__main__':
 
             sleep(2)
 
-            pt.typewrite('Maha@2021')
+            pt.typewrite('ENTER_YOUR_PASSWORD')
 
             sleep(10)
 
@@ -1601,7 +1603,7 @@ if __name__ == '__main__':
 
             speak('Ok sir!')
 
-            speak('Locking window sir, taking some rest as per your command!')
+            speak('Locking window Sir, taking some rest as per your command!')
 
             ctypes.windll.user32.LockWorkStation()
 
@@ -1623,7 +1625,7 @@ if __name__ == '__main__':
 
             time.sleep(5)
 
-            speak('Sir, your system is going to shutdown in second')
+            speak('Sir, your system is going to shutdown in few seconds')
 
             subprocess.call('shutdown / p /1')
 
