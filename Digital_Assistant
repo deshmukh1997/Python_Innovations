@@ -120,8 +120,6 @@ else:
 
 speak('I am your digital assistant HEENAA, Tell Me How May I Help You Sir..!!')
 
-#gTTS(text='Mai aap ki digital assistant heena hu, aap ke liye kya kar sakti hu? Ashmira aap mere Talha sir ko baar baar pareshaan mat kijiye warna bohot bura honga, aap ko meri haath ki maaar padengi, Ashmira tu mere talha sir ke piche mat lag warna main tere piche kutte laga dungi', lang='hi', slow=FALSE).save('assistant.mp3')
-
 #os.system('assistant.mp3')
 
 def takeCommand():
